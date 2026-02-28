@@ -1,66 +1,418 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            text-align: center;
-            padding: 20px;
-        }
-        section {
-            margin: 20px;
-            padding: 20px;
-            background-color: #1e1e1e;
-            border-radius: 8px;
-        }
-        h1, h2 {
-            color: #ffcc00;
-        }
-        a {
-            color: #ffcc00;
-            text-decoration: none;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Linux Systems Engineer specializing in Alpine Linux, containers, automation, and secure minimal infrastructure." />
+  <meta name="color-scheme" content="dark" />
+  <title>maoserrrrrr2 — Alpine Linux Systems Engineer</title>
+  <style>
+    :root{
+      --bg:#070b12;
+      --panel:#0f172a;
+      --panel2:#0b1224;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --line:rgba(148,163,184,.16);
+      --accent:#60a5fa;
+      --accent2:#34d399;
+      --warn:#fbbf24;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --r:16px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 15% -10%, rgba(96,165,250,.18), transparent 60%),
+        radial-gradient(900px 520px at 95% 0%, rgba(52,211,153,.12), transparent 60%),
+        radial-gradient(800px 520px at 45% 120%, rgba(251,191,36,.08), transparent 60%),
+        var(--bg);
+      line-height:1.55;
+    }
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{max-width:1040px; margin:0 auto; padding:24px}
+
+    /* Top nav */
+    .nav{
+      position:sticky;
+      top:16px;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.62);
+      backdrop-filter: blur(10px);
+      border-radius: calc(var(--r) + 2px);
+      box-shadow: var(--shadow);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--text);
+      font-weight:800;
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    .brand:hover{text-decoration:none}
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(96,165,250,.12);
+    }
+    .navlinks{display:flex; flex-wrap:wrap; gap:12px; justify-content:flex-end}
+    .navlinks a{color:var(--muted)}
+    .navlinks a:hover{color:var(--text); text-decoration:none}
+
+    /* Hero */
+    .hero{padding:38px 0 8px}
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      margin:0 0 12px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border:1px solid var(--line);
+      background: rgba(2,6,23,.45);
+      border-radius:999px;
+      color:var(--muted);
+    }
+    h1{
+      margin:0 0 12px;
+      font-size: clamp(34px, 4.2vw, 54px);
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      margin:0 0 18px;
+      max-width: 860px;
+      color:#d1d5db;
+      font-size: 16px;
+    }
+    .muted{color:var(--muted)}
+
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin:16px 0 18px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.6);
+      color:var(--text);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease, border-color .08s ease;
+    }
+    .btn:hover{transform: translateY(-1px); text-decoration:none; border-color: rgba(96,165,250,.32)}
+    .btn.primary{
+      border-color: rgba(96,165,250,.5);
+      background: linear-gradient(180deg, rgba(96,165,250,.24), rgba(15,23,42,.62));
+    }
+    .btn.ghost{color:var(--muted)}
+
+    /* Sections */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+      margin-top: 18px;
+    }
+    @media (min-width: 920px){
+      .grid{grid-template-columns: 1.15fr .85fr;}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.58);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .card h2{margin:0 0 10px; font-size:18px; letter-spacing:.2px}
+    .card p{margin:10px 0 0}
+
+    .bullets{margin:10px 0 0; padding-left:18px}
+    .bullets li{margin:7px 0; color:#d1d5db}
+
+    /* Project cards */
+    .projects{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (min-width: 920px){
+      .projects{grid-template-columns: 1fr 1fr;}
+    }
+
+    .proj{
+      display:block;
+      padding:14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(2,6,23,.35);
+      color:var(--text);
+      transition: transform .08s ease, border-color .08s ease;
+    }
+    .proj:hover{transform: translateY(-1px); border-color: rgba(52,211,153,.28); text-decoration:none}
+    .projtitle{font-weight:800; margin:0 0 6px}
+    .projdesc{color:#d1d5db; margin:0 0 10px}
+    .projmeta{display:flex; gap:8px; flex-wrap:wrap}
+
+    .tag{
+      font-size:12px;
+      color:var(--muted);
+      padding:5px 9px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      border-radius:999px;
+    }
+
+    /* Contact */
+    .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .linklike{
+      padding:0;
+      border:0;
+      background:none;
+      color:var(--accent);
+      cursor:pointer;
+      font: inherit;
+    }
+    .linklike:hover{text-decoration:underline}
+
+    .status{font-size:13px; color: var(--muted); margin-top:8px}
+    .ok{color: var(--accent2)}
+
+    /* Footer */
+    .footer{padding: 18px 0 40px; color: var(--muted); font-size: 13px}
+
+    /* Tiny terminal */
+    .term{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      background: rgba(2,6,23,.50);
+      overflow:hidden;
+    }
+    .termbar{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      background: rgba(15,23,42,.62);
+      border-bottom:1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .lights{display:flex; gap:7px; margin-right:6px}
+    .light{width:10px; height:10px; border-radius:999px; opacity:.9}
+    .l1{background:#ef4444}
+    .l2{background:#f59e0b}
+    .l3{background:#22c55e}
+    pre{
+      margin:0;
+      padding:12px;
+      color:#d1d5db;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13px;
+      overflow:auto;
+    }
+    .prompt{color: var(--accent2)}
+    .hl{color: var(--warn)}
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Portfolio</h1>
-        <p>I am a Linux Systems Engineer specializing in Alpine Linux.</p>
+  <div class="wrap" id="top">
+
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span> maoserrrrrr2</a>
+      <div class="navlinks">
+        <a href="#about">About</a>
+        <a href="#focus">Focus</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="kicker">
+        <span class="chip">Linux</span>
+        <span class="chip">Alpine</span>
+        <span class="chip">Containers</span>
+        <span class="chip">Automation</span>
+      </div>
+
+      <h1>Linux Systems Engineer<br><span class="muted">Alpine Linux • minimal production systems</span></h1>
+      <p class="sub">I build secure, reproducible Linux environments and Alpine-based container images. I care about reliability, performance, and operational simplicity—shipping systems that are fast to deploy and easy to operate.</p>
+
+      <div class="cta">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn ghost" href="#contact">Contact</a>
+        <a class="btn" href="https://github.com/maoserrrrrr2" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+
+      <div class="term" role="img" aria-label="A small terminal showing Alpine package and container build steps">
+        <div class="termbar"><span class="lights" aria-hidden="true"><span class="light l1"></span><span class="light l2"></span><span class="light l3"></span></span> build@alpine — ~/site</div>
+        <pre><span class="prompt">$</span> cat /etc/os-release | head -n 2
+NAME="Alpine Linux"
+ID=alpine
+
+<span class="prompt">$</span> apk add --no-cache ca-certificates curl
+(1/3) Installing ca-certificates ...
+OK: <span class="hl">minimal</span> base, ready.
+
+<span class="prompt">$</span> docker build -t app:alpine .
+# ✅ reproducible image build</pre>
+      </div>
     </header>
-    <section>
-        <h2>About</h2>
-        <p>Passionate about developing and managing Linux systems with a focus on performance and efficiency.</p>
-    </section>
-    <section>
+
+    <main>
+      <section id="about" class="grid">
+        <div class="card">
+          <h2>About</h2>
+          <p>I'm a Linux Systems Engineer focusing on lean infrastructure and reproducible builds. Alpine Linux is a strong default for minimal images (musl/BusyBox), security-conscious setups, and fast deployments.</p>
+          <ul class="bullets">
+            <li>Minimal container images & secure base layers</li>
+            <li>Operational automation (CI/CD, scripts, release pipelines)</li>
+            <li>Reliability: monitoring, alerting, troubleshooting</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Quick facts</h2>
+          <ul class="bullets">
+            <li><b>OS:</b> Alpine Linux, Linux (general)</li>
+            <li><b>Init:</b> OpenRC</li>
+            <li><b>Packaging:</b> apk</li>
+            <li><b>Containers:</b> Docker / OCI / BuildKit</li>
+            <li><b>Automation:</b> GitHub Actions, Shell, Python</li>
+          </ul>
+          <p class="muted" style="margin-top:10px">This site is a single HTML file on GitHub Pages.</p>
+        </div>
+      </section>
+
+      <section id="focus" class="card">
         <h2>Focus</h2>
-        <p>My main areas of expertise include system optimization, network configuration, and secure environments.</p>
-    </section>
-    <section>
+        <div class="projects">
+          <div class="proj">
+            <div class="projtitle">Alpine-first builds</div>
+            <p class="projdesc">Small, secure, reproducible images. Clean layers, pinned versions, sensible defaults.</p>
+            <div class="projmeta"><span class="tag">musl</span><span class="tag">BusyBox</span><span class="tag">apk</span><span class="tag">SBOM</span></div>
+          </div>
+          <div class="proj">
+            <div class="projtitle">CI/CD automation</div>
+            <p class="projdesc">Build → test → scan → release pipelines. Fast feedback and consistent delivery.</p>
+            <div class="projmeta"><span class="tag">GitHub Actions</span><span class="tag">BuildKit</span><span class="tag">Release</span></div>
+          </div>
+          <div class="proj">
+            <div class="projtitle">Security & hardening</div>
+            <p class="projdesc">Least privilege, minimal deps, patching, and practical production hardening.</p>
+            <div class="projmeta"><span class="tag">Hardening</span><span class="tag">TLS</span><span class="tag">Updates</span></div>
+          </div>
+          <div class="proj">
+            <div class="projtitle">Operations</div>
+            <p class="projdesc">Monitoring/alerting, runbooks, debugging, and on-call friendly systems.</p>
+            <div class="projmeta"><span class="tag">Observability</span><span class="tag">Incidents</span><span class="tag">SRE-ish</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="card">
         <h2>Projects</h2>
-        <p>Project 1: Placeholder for project description.</p>
-        <p>Project 2: Placeholder for project description.</p>
-        <p>Project 3: Placeholder for project description.</p>
-    </section>
-    <section>
+        <p class="muted">Replace these with your real repos later — the layout is ready.</p>
+
+        <div class="projects">
+          <a class="proj" href="https://github.com/maoserrrrrr2" target="_blank" rel="noreferrer">
+            <div class="projtitle">Alpine Image Toolkit</div>
+            <p class="projdesc">Scripts/templates for building minimal Alpine images with consistent conventions.</p>
+            <div class="projmeta"><span class="tag">Alpine</span><span class="tag">Containers</span><span class="tag">Shell</span></div>
+          </a>
+
+          <a class="proj" href="https://github.com/maoserrrrrr2" target="_blank" rel="noreferrer">
+            <div class="projtitle">CI/CD Pipeline Templates</div>
+            <p class="projdesc">Reusable GitHub Actions workflows for build/test/scan/release.</p>
+            <div class="projmeta"><span class="tag">GitHub Actions</span><span class="tag">CI/CD</span><span class="tag">Security</span></div>
+          </a>
+
+          <a class="proj" href="https://github.com/maoserrrrrr2/Site" target="_blank" rel="noreferrer">
+            <div class="projtitle">This website</div>
+            <p class="projdesc">Single-file GitHub Pages site (inline CSS + JS). Fast and simple.</p>
+            <div class="projmeta"><span class="tag">GitHub Pages</span><span class="tag">Static</span></div>
+          </a>
+
+          <a class="proj" href="#contact">
+            <div class="projtitle">Need help?</div>
+            <p class="projdesc">I like helping teams ship smaller, safer Linux systems.</p>
+            <div class="projmeta"><span class="tag">Ops</span><span class="tag">Automation</span></div>
+          </a>
+        </div>
+      </section>
+
+      <section id="contact" class="card">
         <h2>Contact</h2>
-        <p>Check out my GitHub: <a href="https://github.com/maoserrrrrr2">maoserrrrrr2</a></p>
-    </section>
-    <footer>
-        <p>&copy; 2026 My Portfolio</p>
-    </footer>
+        <div class="row">
+          <a class="btn" href="https://github.com/maoserrrrrr2" target="_blank" rel="noreferrer">GitHub</a>
+          <button class="btn" id="copyEmail" type="button" data-email="your-email@example.com">Copy email</button>
+          <a class="btn ghost" href="#top">Back to top</a>
+        </div>
+        <div class="status" id="status" aria-live="polite"></div>
+        <p class="muted" style="margin-top:12px">Tip: edit <code>data-email</code> in this file to your real email (or remove it).</p>
+      </section>
+
+      <footer class="footer">
+        © <span id="year"></span> maoserrrrrr2 • Linux Systems Engineer (Alpine)
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const y = document.getElementById('year');
+      if (y) y.textContent = String(new Date().getFullYear());
+
+      const btn = document.getElementById('copyEmail');
+      const status = document.getElementById('status');
+
+      async function copy(text){
+        try{
+          await navigator.clipboard.writeText(text);
+          if(status) status.innerHTML = '<span class="ok">Copied.</span>';
+        }catch(e){
+          if(status) status.textContent = 'Copy failed. Email: ' + text;
+        }
+      }
+
+      if(btn){
+        btn.addEventListener('click', function(){
+          const email = btn.getAttribute('data-email') || '';
+          if(!email || email.includes('your-email@example.com')){
+            if(status) status.textContent = 'Set your real email in data-email inside index.html.';
+            return;
+          }
+          copy(email);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
